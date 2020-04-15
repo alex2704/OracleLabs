@@ -1,22 +1,22 @@
---Практическая работа №5
---Создать схему БД для фиксации успеваемости студентов.
---Есть таблицы:
---	Специальности (просто справочник);
---Учебный план (специальность, семестр, предмет, вид отчетности);
---Студенты (фио, специальность, год поступления);
---Оценки (студент, дата, оценка – предусмотреть неявку).
---(Понятно, что указаны не все необходимые поля, а только список того, 
---что должно быть обязательно).
---В таблицах должны быть предусмотрены все ограничения целостности.
---Создать триггеры для автоинкрементности первичных ключей.
---Заполнить таблицы тестовыми данными.
---Написать запрос, выводящий список должников на текущий момент времени 
---(сколько семестров проучился студент вычислять из года поступления и текущей 
---даты – написать для этого функцию). Должны выводиться поля: код студента, 
---ФИО студента, курс, код предмета, название предмета, семестр, 
---оценка (2 – если сдавал экзамен, нулл – если не сдавал).
---Сделать из этого запроса представление.
---Выбрать из представления студентов с 4-мя и более хвостами (на отчисление).
+п»ї--РџСЂР°РєС‚РёС‡РµСЃРєР°СЏ СЂР°Р±РѕС‚Р° в„–5
+--РЎРѕР·РґР°С‚СЊ СЃС…РµРјСѓ Р‘Р” РґР»СЏ С„РёРєСЃР°С†РёРё СѓСЃРїРµРІР°РµРјРѕСЃС‚Рё СЃС‚СѓРґРµРЅС‚РѕРІ.
+--Р•СЃС‚СЊ С‚Р°Р±Р»РёС†С‹:
+--	РЎРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё (РїСЂРѕСЃС‚Рѕ СЃРїСЂР°РІРѕС‡РЅРёРє);
+--РЈС‡РµР±РЅС‹Р№ РїР»Р°РЅ (СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚СЊ, СЃРµРјРµСЃС‚СЂ, РїСЂРµРґРјРµС‚, РІРёРґ РѕС‚С‡РµС‚РЅРѕСЃС‚Рё);
+--РЎС‚СѓРґРµРЅС‚С‹ (С„РёРѕ, СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚СЊ, РіРѕРґ РїРѕСЃС‚СѓРїР»РµРЅРёСЏ);
+--РћС†РµРЅРєРё (СЃС‚СѓРґРµРЅС‚, РґР°С‚Р°, РѕС†РµРЅРєР° вЂ“ РїСЂРµРґСѓСЃРјРѕС‚СЂРµС‚СЊ РЅРµСЏРІРєСѓ).
+--(РџРѕРЅСЏС‚РЅРѕ, С‡С‚Рѕ СѓРєР°Р·Р°РЅС‹ РЅРµ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РїРѕР»СЏ, Р° С‚РѕР»СЊРєРѕ СЃРїРёСЃРѕРє С‚РѕРіРѕ, 
+--С‡С‚Рѕ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ).
+--Р’ С‚Р°Р±Р»РёС†Р°С… РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РїСЂРµРґСѓСЃРјРѕС‚СЂРµРЅС‹ РІСЃРµ РѕРіСЂР°РЅРёС‡РµРЅРёСЏ С†РµР»РѕСЃС‚РЅРѕСЃС‚Рё.
+--РЎРѕР·РґР°С‚СЊ С‚СЂРёРіРіРµСЂС‹ РґР»СЏ Р°РІС‚РѕРёРЅРєСЂРµРјРµРЅС‚РЅРѕСЃС‚Рё РїРµСЂРІРёС‡РЅС‹С… РєР»СЋС‡РµР№.
+--Р—Р°РїРѕР»РЅРёС‚СЊ С‚Р°Р±Р»РёС†С‹ С‚РµСЃС‚РѕРІС‹РјРё РґР°РЅРЅС‹РјРё.
+--РќР°РїРёСЃР°С‚СЊ Р·Р°РїСЂРѕСЃ, РІС‹РІРѕРґСЏС‰РёР№ СЃРїРёСЃРѕРє РґРѕР»Р¶РЅРёРєРѕРІ РЅР° С‚РµРєСѓС‰РёР№ РјРѕРјРµРЅС‚ РІСЂРµРјРµРЅРё 
+--(СЃРєРѕР»СЊРєРѕ СЃРµРјРµСЃС‚СЂРѕРІ РїСЂРѕСѓС‡РёР»СЃСЏ СЃС‚СѓРґРµРЅС‚ РІС‹С‡РёСЃР»СЏС‚СЊ РёР· РіРѕРґР° РїРѕСЃС‚СѓРїР»РµРЅРёСЏ Рё С‚РµРєСѓС‰РµР№ 
+--РґР°С‚С‹ вЂ“ РЅР°РїРёСЃР°С‚СЊ РґР»СЏ СЌС‚РѕРіРѕ С„СѓРЅРєС†РёСЋ). Р”РѕР»Р¶РЅС‹ РІС‹РІРѕРґРёС‚СЊСЃСЏ РїРѕР»СЏ: РєРѕРґ СЃС‚СѓРґРµРЅС‚Р°, 
+--Р¤РРћ СЃС‚СѓРґРµРЅС‚Р°, РєСѓСЂСЃ, РєРѕРґ РїСЂРµРґРјРµС‚Р°, РЅР°Р·РІР°РЅРёРµ РїСЂРµРґРјРµС‚Р°, СЃРµРјРµСЃС‚СЂ, 
+--РѕС†РµРЅРєР° (2 вЂ“ РµСЃР»Рё СЃРґР°РІР°Р» СЌРєР·Р°РјРµРЅ, РЅСѓР»Р» вЂ“ РµСЃР»Рё РЅРµ СЃРґР°РІР°Р»).
+--РЎРґРµР»Р°С‚СЊ РёР· СЌС‚РѕРіРѕ Р·Р°РїСЂРѕСЃР° РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ.
+--Р’С‹Р±СЂР°С‚СЊ РёР· РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ СЃС‚СѓРґРµРЅС‚РѕРІ СЃ 4-РјСЏ Рё Р±РѕР»РµРµ С…РІРѕСЃС‚Р°РјРё (РЅР° РѕС‚С‡РёСЃР»РµРЅРёРµ).
 
 
 
@@ -76,7 +76,7 @@ create table syllabus_subjects (
     foreign key (subject_id)
     references subjects(subject_id),
   constraint check_reporting_type
-    check (reporting_type in ('Экзамен', 'Зачет', 'Зачет с оценкой'))
+    check (reporting_type in ('Р­РєР·Р°РјРµРЅ', 'Р—Р°С‡РµС‚', 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№'))
 );
 
 create table marks (
@@ -211,26 +211,26 @@ alter trigger tr_marks_set_id enable;
 
 -- specialties
 insert all
-  into specialities (specialty_name) values ('ФКН')
-  into specialities (specialty_name) values ('ФизФак')
+  into specialities (specialty_name) values ('Р¤РљРќ')
+  into specialities (specialty_name) values ('Р¤РёР·Р¤Р°Рє')
 select * from dual
 ;
 
 -- subjects
 insert all
-  into subjects (subject_name) values ('математика')
-  into subjects (subject_name) values ('философия')
-  into subjects (subject_name) values ('программирование')
-  into subjects (subject_name) values ('экономика')
-  into subjects (subject_name) values ('английский')
+  into subjects (subject_name) values ('РјР°С‚РµРјР°С‚РёРєР°')
+  into subjects (subject_name) values ('С„РёР»РѕСЃРѕС„РёСЏ')
+  into subjects (subject_name) values ('РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ')
+  into subjects (subject_name) values ('СЌРєРѕРЅРѕРјРёРєР°')
+  into subjects (subject_name) values ('Р°РЅРіР»РёР№СЃРєРёР№')
 select * from dual;
 
 -- students
 insert all
-  into students (first_name, last_name, specialty_id, receipt_year) values ('Александр', 'Турищев', 1, 2019)
-  into students (first_name, last_name, specialty_id, receipt_year) values ('Алексей', 'Белых', 2, 2019)
-  into students (first_name, last_name, specialty_id, receipt_year) values ('Алексей', 'Николаевич', 1, 2019)
-  into students (first_name, last_name, specialty_id, receipt_year) values ('Анастасия', 'Теремщук', 2, 2019)
+  into students (first_name, last_name, specialty_id, receipt_year) values ('РђР»РµРєСЃР°РЅРґСЂ', 'РўСѓСЂРёС‰РµРІ', 1, 2019)
+  into students (first_name, last_name, specialty_id, receipt_year) values ('РђР»РµРєСЃРµР№', 'Р‘РµР»С‹С…', 2, 2019)
+  into students (first_name, last_name, specialty_id, receipt_year) values ('РђР»РµРєСЃРµР№', 'РќРёРєРѕР»Р°РµРІРёС‡', 1, 2019)
+  into students (first_name, last_name, specialty_id, receipt_year) values ('РђРЅР°СЃС‚Р°СЃРёСЏ', 'РўРµСЂРµРјС‰СѓРє', 2, 2019)
 select * from dual;
 
 
@@ -256,38 +256,38 @@ select * from dual;
 
 -- syllabus_subjects
 insert all
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (1, 1, 'Экзамен')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (1, 2, 'Зачет')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (2, 3, 'Экзамен')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (2, 4, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (3, 5, 'Экзамен')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (3, 2, 'Зачет')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (4, 4, 'Экзамен')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (4, 3, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (5, 2, 'Зачет')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (5, 1, 'Экзамен')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (6, 2, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (6, 3, 'Зачет')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (7, 4, 'Экзамен')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (7, 5, 'Зачет')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (8, 4, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (8, 3, 'Зачет')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (9, 4, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (9, 3, 'Экзамен')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (10, 2, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (10, 3, 'Экзамен')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (11, 3, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (11, 4, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (12, 4, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (12, 5, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (13, 5, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (13, 1, 'Зачет')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (14, 2, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (14, 3, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (15, 4, 'Зачет')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (15, 5, 'Экзамен')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (16, 1, 'Зачет с оценкой')
-  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (16, 2, 'Экзамен')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (1, 1, 'Р­РєР·Р°РјРµРЅ')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (1, 2, 'Р—Р°С‡РµС‚')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (2, 3, 'Р­РєР·Р°РјРµРЅ')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (2, 4, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (3, 5, 'Р­РєР·Р°РјРµРЅ')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (3, 2, 'Р—Р°С‡РµС‚')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (4, 4, 'Р­РєР·Р°РјРµРЅ')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (4, 3, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (5, 2, 'Р—Р°С‡РµС‚')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (5, 1, 'Р­РєР·Р°РјРµРЅ')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (6, 2, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (6, 3, 'Р—Р°С‡РµС‚')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (7, 4, 'Р­РєР·Р°РјРµРЅ')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (7, 5, 'Р—Р°С‡РµС‚')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (8, 4, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (8, 3, 'Р—Р°С‡РµС‚')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (9, 4, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (9, 3, 'Р­РєР·Р°РјРµРЅ')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (10, 2, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (10, 3, 'Р­РєР·Р°РјРµРЅ')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (11, 3, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (11, 4, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (12, 4, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (12, 5, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (13, 5, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (13, 1, 'Р—Р°С‡РµС‚')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (14, 2, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (14, 3, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (15, 4, 'Р—Р°С‡РµС‚')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (15, 5, 'Р­РєР·Р°РјРµРЅ')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (16, 1, 'Р—Р°С‡РµС‚ СЃ РѕС†РµРЅРєРѕР№')
+  into syllabus_subjects (syllabus_id, subject_id, reporting_type) values (16, 2, 'Р­РєР·Р°РјРµРЅ')
 select * from dual;
 
 --marks
