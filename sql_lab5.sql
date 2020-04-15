@@ -88,12 +88,9 @@ create table marks (
   subject_id number(10) not null,
   constraint pk_mark_id 
     primary key (mark_id),
-  constraint fk_syllabuses_mark
-    foreign key (syllabus_id)
-    references syllabuses(syllabus_id),
-  constraint fk_subjects_marks
-    foreign key (subject_id)
-    references subjects(subject_id)
+  constraint fk_syll_subj_mark
+    foreign key (syllabus_id, subject_id)
+    references syllabuses(syllabus_id)
 );
 
 
@@ -305,6 +302,7 @@ insert all
   into marks (mark, student_id, receiving_date, syllabus_id, subject_id) values (3, 4, date'2020-01-21', 9, 3)
 select * from dual;
 
+--сколько семестров проучился студент вычислять из года поступления и текущей даты – написать для этого функцию
 /
 create or replace
 function fn_count_semesters (
@@ -332,6 +330,10 @@ begin
 end;
 /
 
+--Написать запрос, выводящий список должников на текущий момент времени. 
+--Должны выводиться поля: код студента, ФИО студента, курс, код предмета, 
+--название предмета, семестр, оценка (2 – если сдавал экзамен, 
+--нулл – если не сдавал).Сделать из этого запроса представление.
 create or replace 
 view count_tails_view as
 select  s.student_id,
@@ -353,3 +355,13 @@ select  s.student_id,
             syl_sub.subject_id = sub.subject_id
     where nvl(m.mark, 2) = 2;
 /
+
+--Выбрать из представления студентов с 4-мя и более хвостами (на отчисление).
+select  stv.student_id,
+        stv.name, 
+        count(stv.student_id) as tails_count
+  from  count_tails_view stv
+  group by  stv.student_id,
+            stv.name
+  having count(stv.student_id) > 3
+;
